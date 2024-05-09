@@ -1,3 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using ProcessMonitorUtility;
+using System;
+using System.Diagnostics;
 
-Console.WriteLine("Hello, World!");
+namespace ProcessMonitorUtility;
+public class Program
+{
+    public static void Main()
+    {
+        ProcessMonitor.MonitorProcess();
+    }
+}
