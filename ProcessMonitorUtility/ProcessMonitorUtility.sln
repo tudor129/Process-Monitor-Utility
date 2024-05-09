@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessMonitorUtility", "ProcessMonitorUtility.csproj", "{288BC7F1-54D9-4F8E-AB20-2A3C6162DBB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessMonitorUtility.Tests", "..\ProcessMonitorUtility.Tests\ProcessMonitorUtility.Tests.csproj", "{03ED47F3-7362-4B39-85F8-44535446BBA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{288BC7F1-54D9-4F8E-AB20-2A3C6162DBB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288BC7F1-54D9-4F8E-AB20-2A3C6162DBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288BC7F1-54D9-4F8E-AB20-2A3C6162DBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288BC7F1-54D9-4F8E-AB20-2A3C6162DBB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03ED47F3-7362-4B39-85F8-44535446BBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03ED47F3-7362-4B39-85F8-44535446BBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03ED47F3-7362-4B39-85F8-44535446BBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03ED47F3-7362-4B39-85F8-44535446BBA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
