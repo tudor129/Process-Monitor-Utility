@@ -4,6 +4,6 @@ namespace ProcessMonitorUtility;
 
 public interface IProcessManager
 {
-    Process[] GetProcessesByName(string name);
-    void KillProcess(Process process);
+    IProcessWrapper[] GetProcessesByName(string name);
+    void KillProcess(IProcessWrapper process);
 }

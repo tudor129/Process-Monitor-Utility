@@ -4,11 +4,11 @@ namespace ProcessMonitorUtility;
 
 public class SystemProcessManager : IProcessManager
 {
-    public Process[] GetProcessesByName(string name)
+    public IProcessWrapper[] GetProcessesByName(string name)
     {
-        return Process.GetProcessesByName(name);
+        return Process.GetProcessesByName(name).Select(p => new ProcessWrapper(p)).ToArray();
     }
-    public void KillProcess(Process process)
+    public void KillProcess(IProcessWrapper process)
     {
         process.Kill();
     }
