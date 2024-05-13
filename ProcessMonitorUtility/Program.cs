@@ -1,9 +1,4 @@
-﻿using ProcessMonitorUtility;
-using System;
-using System.CommandLine;
-using System.CommandLine.Invocation;
-using System.Diagnostics;
-
+﻿
 namespace ProcessMonitorUtility;
 public class Program
 {

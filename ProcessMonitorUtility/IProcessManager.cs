@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-
+﻿
 namespace ProcessMonitorUtility;
 
 public interface IProcessManager
