@@ -11,6 +11,13 @@ public class Program
         var processManager = new SystemProcessManager();
         var processMonitor = new ProcessMonitor(console, processManager);
         
-        processMonitor.MonitorProcess("notepad", 1, 1);
+        processMonitor.MonitorSingleProcess("notepad", 1, 1);
+        
+        
+        string[] processNames = new string[]{ "explorer", "notepad" };
+        int[] lifetimes = new int[]{ 1, 2 };
+        int frequency = 1;
+        
+        //processMonitor.MonitorProcesses(processNames, lifetimes, frequency);
     }
 }

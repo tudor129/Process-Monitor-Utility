@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace ProcessMonitorUtility;
@@ -13,8 +14,8 @@ public class ProcessMonitor
         _console = console;
         _processManager = processManager;
     }
-
-    public void MonitorProcess(string name, int lifeTime, int frequency)
+    
+    public void MonitorSingleProcess(string name, int lifeTime, int frequency)
     {
         _console.WriteLine("Press 'q' to quit monitoring.");
 
@@ -38,47 +39,39 @@ public class ProcessMonitor
             }
             Thread.Sleep(frequency * 1000);
         }
-        
-        /*Console.WriteLine("Enter the name of the process you want to monitor: ");
-        name = Console.ReadLine();
+    }
 
-        Console.WriteLine("Enter the maximum life time of the process in minutes: ");
-        if (!int.TryParse(Console.ReadLine(), out lifeTime) || lifeTime <= 0)
+    // This method should monitor multiple processes at the same time.
+    // Should be called in the Main method instead of MonitorSingleProcess.
+    // Unit tests have not been provided for this method.
+    public void MonitorProcesses(string[] names, int[] lifeTimes, int frequency)
+    {
+        _console.WriteLine("Press 'q' to quit monitoring.");
+
+        List<Thread> threads = new List<Thread>();
+        for (int i = 0; i < names.Length; i++)
         {
-            Console.WriteLine("Invalid input for maximum life time.");
-            return;
+            int index = i;
+            Thread thread = new Thread(() => MonitorSingleProcess(names[index], lifeTimes[index], frequency));
+            threads.Add(thread);
+            thread.Start();
         }
 
-        Console.WriteLine("Enter the frequency of checks in seconds: ");
-        if (!int.TryParse(Console.ReadLine(), out frequency) || frequency <= 0)
-        {
-            Console.WriteLine("Invalid input for check frequency.");
-            return;
-        }
-
-        Console.WriteLine("Press 'q' to quit monitoring.");
         while (true)
         {
-            var processes = Process.GetProcessesByName(name);
-            
-            if (Console.KeyAvailable && Console.ReadKey().KeyChar == 'q')
-                break;
-
-            foreach (var process in processes)
+            if (_console.KeyAvailable && _console.ReadKey().KeyChar == 'q')
             {
-                Console.WriteLine("Checking process..." +
-                                  process.ProcessName + " that is running for " +
-                                  (DateTime.Now - process.StartTime).TotalMinutes + " minutes, and current time " +
-                                  DateTime.Now + " and max life time " +
-                                  lifeTime + " minutes.");
-                if ((DateTime.Now - process.StartTime).TotalMinutes > lifeTime)
+                foreach (var thread in threads)
                 {
-                    Console.WriteLine($"Process {name} has been running for too long. Killing it now.");
-                    process.Kill();
+                    thread.Interrupt();
                 }
+                break;
             }
-            Thread.Sleep(frequency * 1000);
-        }*/
+        }
+        foreach (var thread in threads)
+        {
+            thread.Join();
+        }
     }
 }
 

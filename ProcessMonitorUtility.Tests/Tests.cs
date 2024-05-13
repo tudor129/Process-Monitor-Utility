@@ -47,12 +47,10 @@ public class Tests
             .Returns(false)
             .Returns(true);
         
-        //_consoleMock.Setup(m => m.ReadKey()).Returns(new ConsoleKeyInfo('q', ConsoleKey.Q, false, false, false));
         
         //Act
-        _monitor.MonitorProcess("notepad", 1, 1);
+        _monitor.MonitorSingleProcess("notepad", 1, 1);
         //Assert
         _processManagerMock.Verify(m => m.KillProcess(processMock.Object), Times.Once);
-       
     }
 }
