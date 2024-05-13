@@ -35,4 +35,4 @@ This command configures the utility to monitor all instances of Notepad. If a No
 
 To run the unit tests for this project: 
 
-dotnet test
+dotnet test 
