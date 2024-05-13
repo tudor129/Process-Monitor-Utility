@@ -47,10 +47,29 @@ public class Tests
             .Returns(false)
             .Returns(true);
         
-        
         //Act
         _monitor.MonitorSingleProcess("notepad", 1, 1);
         //Assert
         _processManagerMock.Verify(m => m.KillProcess(processMock.Object), Times.Once);
+    }
+    
+    [Test]
+    public void TestProcessMonitor_FailsToKillProcess()
+    {
+        var processMock = new Mock<IProcessWrapper>();
+        processMock.Setup(p => p.ProcessName).Returns("notepad");
+        processMock.Setup(p => p.StartTime).Returns(DateTime.Now.AddMinutes(-10));
+
+        _processManagerMock.Setup(m => m.GetProcessesByName("notepad")).Returns(new[] { processMock.Object });
+        _processManagerMock.Setup(m => m.KillProcess(It.IsAny<IProcessWrapper>())).Throws(new InvalidOperationException("Access denied"));
+
+        _consoleMock.SetupSequence(m => m.KeyAvailable).Returns(false).Returns(true);
+    
+        // Act
+        _monitor.MonitorSingleProcess("notepad", 5, 1);
+
+        // Assert
+        _processManagerMock.Verify(m => m.KillProcess(processMock.Object), Times.Once);
+        _consoleMock.Verify(m => m.WriteLine(It.Is<string>(s => s.Contains("Failed to kill process"))), Times.Once);
     }
 }

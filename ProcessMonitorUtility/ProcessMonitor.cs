@@ -33,8 +33,15 @@ public class ProcessMonitor
                 
                 if (runningTime > lifeTime)
                 {
-                    _console.WriteLine($"Process {name} has been running for too long. Killing it now.");
-                    _processManager.KillProcess(process);
+                    try
+                    {
+                        _console.WriteLine($"Process {name} has been running for too long. Killing it now.");
+                        _processManager.KillProcess(process);
+                    }
+                    catch (Exception ex)
+                    {
+                        _console.WriteLine($"Failed to kill process {name}: {ex.Message}");
+                    }
                 }
             }
             Thread.Sleep(frequency * 1000);
@@ -43,8 +50,9 @@ public class ProcessMonitor
 
     // This method should monitor multiple processes at the same time.
     // Should be called in the Main method instead of MonitorSingleProcess.
+    // The arguments will be provided when calling the method, it does not work yet with user input.
     // Unit tests have not been provided for this method.
-    public void MonitorProcesses(string[] names, int[] lifeTimes, int frequency)
+    public void MonitorMultipleProcesses(string[] names, int[] lifeTimes, int frequency)
     {
         _console.WriteLine("Press 'q' to quit monitoring.");
 
